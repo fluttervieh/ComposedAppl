@@ -1,0 +1,61 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'jacoco'
+}
+
+group = 'at.fhv.se'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+	dependsOn test
+
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	runtimeOnly 'com.h2database:h2'
+	compile 'net.sourceforge.htmlunit:htmlunit:2.47.1'
+	implementation 'org.hibernate:hibernate-jcache:5.4.28.Final'
+	implementation group: 'org.ehcache', name: 'ehcache', version: '3.9.2'
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.6'
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+tasks.withType(Test) {
+	maxParallelForks = 1
+}
+
+jar {
+	archiveBaseName.set('collabnotes-backend')
+	archiveVersion.set('')
+	archiveExtension.set('jar')
+}
+
+build.dependsOn jacocoTestReport

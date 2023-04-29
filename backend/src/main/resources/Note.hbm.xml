@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="at.fhv.se.collabnotes.domain.model.Note" table="notes" lazy="true">
+        <cache usage="read-write"/>
+
+        <id name="id" type="long" column="id" unsaved-value="-1">
+            <generator class="native"/>
+        </id>
+
+        <version name="version" column="note_version" type="int" />
+
+        <property name="title" column="title" type="java.lang.String" />
+        
+        <component name="noteId" class="at.fhv.se.collabnotes.domain.model.NoteId">
+            <property name="id" column="domain_id" type="java.lang.String" />
+        </component>
+
+        <set name="items" inverse="false" lazy="true" cascade="all,delete-orphan">
+            <key>
+                <column name="note_id" not-null="false" />
+            </key>
+            <one-to-many class="at.fhv.se.collabnotes.domain.model.NoteItem" />
+        </set>
+    </class>
+</hibernate-mapping>

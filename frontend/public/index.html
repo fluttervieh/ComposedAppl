@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Todo List</title>
+</head>
+<body onload="getAllTodos()">
+	<input type="text" id="todoInput">
+	<button onclick="addTodo()">Add Todo</button>
+	<ul id="todoList"></ul>
+
+	<script>
+		function addTodo() {
+			// Get the input value
+			var todoText = document.getElementById("todoInput").value;
+
+			// Create a new list item with the input value
+			var li = document.createElement("li");
+			var text = document.createTextNode(todoText);
+
+			li.appendChild(text);
+
+			// Add the new list item to the todo list
+			document.getElementById("todoList").appendChild(li);
+
+			// Clear the input field
+			document.getElementById("todoInput").value = "";
+
+			fetch('http://localhost:8080/rest/note/', {
+   				 method: 'POST',
+    			headers: {
+      				'Content-Type': 'application/json'
+    			},
+				body: todoText
+ 			 })
+    		.then(response => {
+      			if (!response.ok) {
+        			throw new Error('Network response was not ok');
+      			}
+      		return response.json();
+    		})
+    		.then(data => {
+      			console.log(data);
+      			// Do something with the response data
+    		})
+    		.catch(error => {
+     		 		console.error('There was a problem with the fetch operation:', error);
+    		});
+
+
+		}
+		function getAllTodos() {
+			console.log("called");
+			fetch('http://localhost:8080/rest/note/all')
+  				.then(response => {
+    		if (!response.ok) {
+     			 throw new Error('Network response was not ok');
+    		}
+    		return response.json();
+  			})
+  			.then(data => {
+    			console.log(data);// Do something with the data
+				
+				document.getElementById("todoList").innerHTML = "";
+
+				data.forEach(element => {
+        			var li = document.createElement("li");
+        			var text = document.createTextNode(element.title);
+        			li.appendChild(text);
+        			document.getElementById("todoList").appendChild(li);
+      			});
+				
+  			})
+  			.catch(error => {
+    			console.error('There was a problem with the fetch operation:', error);
+  			});
+		}
+
+		
+	</script>
+</body>
+</html>

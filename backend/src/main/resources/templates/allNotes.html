@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Collab Notes</title>
+    </head>
+    <body>
+        <a href="/mvc/newnote">New Note</a>
+
+        <ul>
+            <li th:each="n : ${allNotes}">
+                <a th:href="@{/mvc/viewnote(id=${n.id})}" th:text="${n.title}"></a>
+            </li>
+        </ul>
+
+        <br>
+
+        <div th:text="'Total Notes: ' + ${stats.notes}"></div>
+        <div th:text="'Total Items: ' + ${stats.items}"></div>
+        <div th:text="'Average Items per Note: ' + ${stats.averageItems}"></div>
+    </body>
+</html>

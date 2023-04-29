@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Collab Notes</title>
+    </head>
+    <body>
+        <h1 th:text="${note.title}"></h1>
+        
+        <a href="/mvc/">Back</a>
+        
+        </p>
+
+        <form action="/mvc/deletenote" method="post">
+            <input type="hidden" id="id" name="id" th:value="${note.id}" />
+            <input type="hidden" id="version" name="version" th:value="${note.version}" />
+            <input type="submit" value="Delete Note" />
+        </form>
+
+        </p>
+
+        <form action="#" th:action="@{/mvc/additem}" th:object="${addItem}" method="post">
+            <input type="hidden" th:field="*{noteId}" />
+            <input type="hidden" th:field="*{noteVersion}" />
+            <input type="text" th:field="*{itemText}" />
+            <input type="submit" value="Add Item" />
+        </form>
+
+        </p>
+
+        <ul>
+            <form th:each="n : ${note.items}" 
+                    action="/mvc/removeitem"
+                    method="post">
+
+                <li th:text="${n}"></li>
+
+                <input type="hidden" id="noteId" name="noteId" th:value="${note.id}" />
+                <input type="hidden" id="noteVersion" name="noteVersion" th:value="${note.version}" />
+                <input type="hidden" id="itemText" name="itemText" th:value="${n}" />
+                <input type="submit" value="Remove" />
+            </form>
+        </ul>
+    </body>
+</html>
