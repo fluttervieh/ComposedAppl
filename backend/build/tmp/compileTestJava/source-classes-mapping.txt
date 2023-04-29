@@ -4,8 +4,8 @@ at/fhv/se/collabnotes/integration/application/EventProcessingServiceTests.java
  at.fhv.se.collabnotes.integration.application.EventProcessingServiceTests
 at/fhv/se/collabnotes/integration/rest/RestApiTests.java
  at.fhv.se.collabnotes.integration.rest.RestApiTests
-at/fhv/se/collabnotes/utils/TestingUtils.java
- at.fhv.se.collabnotes.utils.TestingUtils
+at/fhv/se/collabnotes/smoketests/rest/RestControllerSmokeTests.java
+ at.fhv.se.collabnotes.smoketests.rest.RestControllerSmokeTests
 at/fhv/se/collabnotes/api/ViewApiTests.java
  at.fhv.se.collabnotes.api.ViewApiTests
 at/fhv/se/collabnotes/integration/domain/NoteRepositoryIntegrationTests.java
@@ -43,5 +43,5 @@ at/fhv/se/collabnotes/integration/application/ViewNotesServiceTests.java
  at.fhv.se.collabnotes.integration.application.ViewNotesServiceTests
 at/fhv/se/collabnotes/integration/application/StatisticsServiceTests.java
  at.fhv.se.collabnotes.integration.application.StatisticsServiceTests
-at/fhv/se/collabnotes/smoketests/rest/RestControllerSmokeTests.java
- at.fhv.se.collabnotes.smoketests.rest.RestControllerSmokeTests
+at/fhv/se/collabnotes/utils/TestingUtils.java
+ at.fhv.se.collabnotes.utils.TestingUtils
