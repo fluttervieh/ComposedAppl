@@ -25,7 +25,7 @@
 			// Clear the input field
 			document.getElementById("todoInput").value = "";
 
-			fetch('http://10.244.100.224:8080/rest/note/', {
+			fetch('http://10.244.100.224:8080/backend/rest/note/', {
    				 method: 'POST',
     			headers: {
       				'Content-Type': 'application/json'
@@ -50,7 +50,7 @@
 		}
 		function getAllTodos() {
 			console.log("called fetch function");
-			fetch('http://10.244.100.224:8080/rest/note/all')
+			fetch('http://10.244.100.224:8080/backend/rest/note/all')
   				.then(response => {
     		if (!response.ok) {
      			 throw new Error('Network response was not ok');
