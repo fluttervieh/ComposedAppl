@@ -2,13 +2,38 @@
 <html>
 <head>
 	<title>Todo List</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+
 </head>
 <body onload="getAllTodos()">
 	<input type="text" id="todoInput">
+	<input type="file" accept="image/jpeg, image/png, image/jpg">
+	<output></output>
+	<img id="selectedImage" src="" alt="Selected Image">
+
 	<button onclick="addTodo()">Add Todo</button>
 	<ul id="todoList"></ul>
 
 	<script>
+
+		//const input = document.querySelector("input")
+		const input = document.querySelector("input[type='file']")
+
+		const output = document.querySelector("output")
+		const selectedImage = document.getElementById("selectedImage")
+
+		let imagesArray = []
+
+		
+		input.addEventListener("change", () => {
+  			const file = input.files[0]
+  			const imageURL = URL.createObjectURL(file)
+  			selectedImage.src = imageURL
+			console.log(imageURL)
+		})
+
+		
+
 		function addTodo() {
 			// Get the input value
 			var todoText = document.getElementById("todoInput").value;
@@ -25,7 +50,8 @@
 			// Clear the input field
 			document.getElementById("todoInput").value = "";
 
-			fetch('https://composed-application-pepc7.ondigitalocean.app/backend/rest/note/', {
+			fetch('http://localhost:8080/rest/note/',  {
+			//fetch('https://composed-application-pepc7.ondigitalocean.app/backend/rest/note/', {
    				 method: 'POST',
     			headers: {
       				'Content-Type': 'application/json'
@@ -50,7 +76,7 @@
 		}
 		function getAllTodos() {
 			console.log("called fetch function");
-			fetch('https://composed-application-pepc7.ondigitalocean.app/backend/rest/note/all')
+			fetch('http://localhost:8080/rest/note/all')
   				.then(response => {
     		if (!response.ok) {
      			 throw new Error('Network response was not ok');
